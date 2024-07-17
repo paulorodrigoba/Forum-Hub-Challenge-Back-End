@@ -96,4 +96,3 @@ Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](link_
 
 ---
 
-Você pode ajustar os links e detalhes conforme necessário. Espero que isso ajude!
