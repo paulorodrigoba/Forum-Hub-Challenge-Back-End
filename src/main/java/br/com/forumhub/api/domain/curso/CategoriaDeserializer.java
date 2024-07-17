@@ -1,7 +1,6 @@
 package br.com.forumhub.api.domain.curso;
 
 import br.com.forumhub.api.domain.validacao.ValidacaoException;
-import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -13,12 +12,12 @@ import java.io.IOException;
 public class CategoriaDeserializer extends JsonDeserializer<Categoria> {
 
     @Override
-    public Categoria deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JacksonException {
-        String value = p.getText().toUpperCase();
+    public Categoria deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+        String value = jsonParser.getText().toUpperCase();
         try {
             return Categoria.valueOf(value);
         } catch (IllegalArgumentException e) {
-            throw new ValidacaoException("Categoria inválida");
+            throw new ValidacaoException("Categoria inválida: " + value);
         }
     }
 }

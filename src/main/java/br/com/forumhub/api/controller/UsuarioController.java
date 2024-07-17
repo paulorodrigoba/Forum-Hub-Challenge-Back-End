@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,14 +22,13 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class UsuarioController {
 
-    @Autowired private UsuarioService service;
+    private final UsuarioService service;
 
     @PostMapping
-    @Operation(summary = "Registar", description = "Cadastro de novo usuário")
-    public ResponseEntity<DadosUsuario> registrar (@Valid @RequestBody DadosRegistroUsuario dados, UriComponentsBuilder builder){
+    @Operation(summary = "Registrar", description = "Cadastro de novo usuário")
+    public ResponseEntity<DadosUsuario> registrar(@Valid @RequestBody DadosRegistroUsuario dados, UriComponentsBuilder builder) {
         DadosUsuario dadosUsuario = service.registrar(dados);
-        URI uri = builder.path("/usuario/{id}").buildAndExpand(dadosUsuario.id().toUri());
+        URI uri = builder.path("/usuarios/{id}").buildAndExpand(dadosUsuario.id()).toUri();
         return ResponseEntity.created(uri).body(dadosUsuario);
     }
-
 }
